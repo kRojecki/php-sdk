@@ -350,14 +350,14 @@ class Client
                 $code = $e->getCode();
                 $canBeRetried = \in_array($code, array(0, 404, 405), true) || $code >= 500;
 
-                if (!$canBeRetried || $retry > self::MAX_RETRY) {
+                if (!$canBeRetried || $retry > static::MAX_RETRY) {
                     throw $e;
                 }
             }
 
             usleep(++$retry * 50000);
 
-            if ($retry > self::MAX_RETRY) {
+            if ($retry > static::MAX_RETRY) {
                 if (null === $e) {
                     throw new ApiException('Profile is still in the queue.');
                 }
